@@ -1,0 +1,72 @@
+/* inter-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/inter-v13-latin-regular.woff2") format("woff2");
+}
+/* inter-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/inter-v13-latin-500.woff2") format("woff2");
+}
+/* inter-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/inter-v13-latin-700.woff2") format("woff2");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  border: unset;
+  background-color: unset;
+  &:hover {
+    background-color: unset;
+  }
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f6f6f6;
+  padding: 0 10px;
+}
+
+  ::-webkit-scrollbar {
+    height: 5px;
+}
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

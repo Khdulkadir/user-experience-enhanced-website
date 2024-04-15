@@ -1,0 +1,149 @@
+div.topbar-wrapper {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+div.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ul.topbar-left-items,
+ul.topbar-right-items {
+  display: flex;
+}
+
+div.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 0;
+  margin-top: 40px;
+  align-items: center;
+}
+
+div.primary-nav-container {
+  padding-bottom: 20px;
+
+}
+
+ul.primary-nav-items {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 8px 0;
+}
+
+a.topbar-link {
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: Inter;
+  transition: 0.3s;
+  &:hover {
+    color: #a8a8a8;
+  }
+}
+
+li.topbar-item:not(:last-child) {
+  margin-right: 30px;
+}
+
+p.header-date {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: Inter;
+}
+
+p.slogan {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: Inter;
+}
+
+div.header-links-container {
+  display: flex;
+}
+
+a.header-links {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: Inter;
+  transition: 0.3s;
+  &:hover {
+    color: #a8a8a8;
+    fill: #a8a8a8;
+  }
+}
+
+a.header-links:not(:last-child) {
+  margin-right: 20px;
+}
+
+a.primary-nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: Inter;
+  color: black;
+  transition: 0.3s;
+  &:hover {
+    color: #a8a8a8;
+  }
+}
+
+span.link-text {
+  vertical-align: 6px;
+  padding-left: 6px;
+}
+
+div.logo-container {
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width:900px) {
+  ul.primary-nav-items {
+    overflow: auto;    
+    justify-content: normal;
+    gap: 15px;
+  }
+
+  li.primary-nav-item {
+    white-space: nowrap;
+    margin-right: 5px;
+  }
+
+  div.header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+  }
+
+  nav.topbar-left {
+    display: none;
+  }
+
+  div.topbar-container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:500px) {
+  a.topbar-link {
+    font-size: 10px;
+  }
+}

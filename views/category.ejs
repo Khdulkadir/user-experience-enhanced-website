@@ -1,0 +1,17 @@
+<% category.forEach(function(category) { %>
+<div class="sub-article-container">
+  <a
+    class="article-link"
+    href="/<%= category.categories[0] %>/<%= category.id %>"
+  >
+    <article class="sub-article">
+      <h2><%- category.title.rendered %></h2>
+      <img
+        src="<%= category.yoast_head_json.og_image[0].url %>"
+        alt="<%= category.yoast_head_json.schema['@graph'][2].caption %>"
+      />
+      <p class="date"><%= category.date %></p>
+    </article>
+  </a>
+</div>
+<% }); %>
