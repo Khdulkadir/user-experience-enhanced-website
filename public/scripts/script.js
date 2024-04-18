@@ -129,3 +129,34 @@ for (var i = 0; i < elements.length; i++) {
 
     // Update the content of the element with the formatted date
 document.querySelector('.article-post-date').textContent = formattedDateStr;
+
+// LIKE ARTICLE WITHOUT RELOADING PAGE
+
+let forms = document.querySelectorAll('form')
+
+forms.forEach(function (form) {
+
+  form.addEventListener('submit', function (event) {
+    
+    let data = new FormData(this)
+    
+		data.append('enhanced', true)
+
+		fetch(this.action, {
+
+			method: this.method,
+
+			body: new URLSearchParams(data)
+
+		}).then(function(response) {
+
+			return response.text()
+
+		}).then(function(responseHTML) {
+			document.querySelector('button').innerHTML = responseHTML
+
+		});
+
+		event.preventDefault()
+	})
+})

@@ -37,7 +37,7 @@ const perPage = "&per_page=3";
 const apiURLVoorpagina = "https://redpers.nl/wp-json/wp/v2/posts?per_page=4";
 const apiURLBinnenland = baseURL + 9 + perPage;
 const apiURLBuitenland = baseURL + 1010 + perPage;
-const apiURLColumns = baseURL + 10 + perPage;
+const apiURLColumn = baseURL + 7164 + perPage;
 const apiURLEconomie = baseURL + 6 + perPage;
 const apiURLKunstMedia = baseURL + 4 + perPage;
 const apiURLPodcast = baseURL + 3211 + perPage;
@@ -53,7 +53,7 @@ app.get("/", function (request, response) {
     fetchJson(apiURLVoorpagina),
     fetchJson(apiURLBinnenland),
     fetchJson(apiURLBuitenland),
-    fetchJson(apiURLColumns),
+    fetchJson(apiURLColumn),
     fetchJson(apiURLEconomie),
     fetchJson(apiURLKunstMedia),
     fetchJson(apiURLPodcast),
@@ -64,7 +64,7 @@ app.get("/", function (request, response) {
       voorpaginaData,
       binnenlandData,
       buitenlandData,
-      columnsData,
+      columnData,
       economieData,
       kunstmediaData,
       podcastData,
@@ -75,7 +75,7 @@ app.get("/", function (request, response) {
         voorpagina: voorpaginaData,
         binnenland: binnenlandData,
         buitenland: buitenlandData,
-        columns: columnsData,
+        column: columnData,
         economie: economieData,
         kunstmedia: kunstmediaData,
         podcast: podcastData,
@@ -108,7 +108,7 @@ app.get("/artikel/:slug", function (request, response) {
     console.log(likeData.data)
     response.render("article", {
       article: articleData,
-      like: likeData.data
+      like: likeData.data,
     });
   });
 });
@@ -116,7 +116,26 @@ app.get("/artikel/:slug", function (request, response) {
 
 /***LIKE ARTICLE ***/
 
-app.post('/artikel/:slug', (request, response) => {
+let likes = []
+
+// app.post('/artikel/:slug', (request, response) => {
+//   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares?filter[slug][_eq]=${request.params.slug}`).then
+//     (({ data }) => {
+//   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares/${data[0]?.id ? data[0].id : ''}`, {
+//       method: data[0]?.id ? 'PATCH' : 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({
+//         slug: request.params.slug,
+//         shares: data.length > 0 ? data[0].shares + 1 : 1,
+//       }),
+//     })
+//     })
+//   {
+//         response.redirect(301, `/artikel/${request.params.slug}`);
+//       }
+// })
+
+app.post('/like', (request, response) => {
   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares?filter[slug][_eq]=${request.params.slug}`).then
     (({ data }) => {
   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares/${data[0]?.id ? data[0].id : ''}`, {
@@ -127,8 +146,12 @@ app.post('/artikel/:slug', (request, response) => {
         shares: data.length > 0 ? data[0].shares + 1 : 1,
       }),
     })
-  })
-  setTimeout(() => {
-        response.redirect(301, `/artikel/${request.params.slug}`);
-      }, 500);
+    })
+  likes.push(request.body.like)
+      if (request.body.enhanced) {
+    response.render('partials/like', {like: likes})
+  } else
+  {
+        response.redirect(301, `/like`);
+      }
 })

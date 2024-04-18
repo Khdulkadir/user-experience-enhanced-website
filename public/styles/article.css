@@ -114,7 +114,7 @@ div.article-content blockquote {
     }
 }
 
-button#share {
+button#like {
     font-family: Inter;
     font-size: 13px;
     text-transform: uppercase;
@@ -128,7 +128,7 @@ button#share {
     }
 }
 
-button#share span svg {
+button#like span svg {
     margin-right: 5px;
     vertical-align: -3px;
 }

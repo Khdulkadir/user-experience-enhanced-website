@@ -131,31 +131,31 @@
 </div>
 
 <section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Columns</h2>
-  <a class="sub-article-section-link" href="/10"><span class="sub-article-section-link-text">Meer columns</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
+  <h2 class="sub-article-section-heading">Column</h2>
+  <a class="sub-article-section-link" href="/10"><span class="sub-article-section-link-text">Meer column</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
 </section>
 
 <div class="sub-article-container">
-<% columns.forEach(function(columns) { %>
+<% column.forEach(function(column) { %>
   <a
     class="article-link"
-    href="artikel/<%= columns.slug%>"
+    href="artikel/<%= column.slug%>"
   >
     <article class="sub-article">
       <div class="sub-article-featured-image-container">
       <img class="sub-article-featured-image"
-        src="<%= columns.yoast_head_json.og_image[0].url %>"
+        src="<%= column.yoast_head_json.og_image[0].url %>"
         width="768" height="512"
-        alt="<%= columns.yoast_head_json.schema['@graph'][2].caption %>"
+        alt="<%= column.yoast_head_json.schema['@graph'][2].caption %>"
       />
       </div>
       <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= columns.date %></p>
-      <h2 class="sub-article-title"><%- columns.title.rendered %></h2>
+      <p class="sub-article-date-mobile"><%= column.date %></p>
+      <h2 class="sub-article-title"><%- column.title.rendered %></h2>
       </div>
       <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= columns.yoast_head_json.author %> <span class="reading-time">– <%= columns.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= columns.date %></p>
+      <p class="author-reading-time"><%= column.yoast_head_json.author %> <span class="reading-time">– <%= column.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
+      <p class="sub-article-date"><%= column.date %></p>
       </div>
     </article>
   </a>
@@ -365,7 +365,7 @@
 <% const categories = {
   'Binnenland': binnenland,
   'Buitenland': buitenland,
-  'Columns': columns,
+  'Column': column,
   'Economie': economie,
   'Kunst & Media': kunstmedia,
   'Podcasts': podcast,
