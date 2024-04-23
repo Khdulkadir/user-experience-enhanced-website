@@ -44,32 +44,88 @@ const apiURLPodcast = baseURL + 3211 + perPage;
 const apiURLPolitiek = baseURL + 63 + perPage;
 const apiURLWetenschap = baseURL + 94 + perPage;
 
+
+const categories = [
+    {
+        name: 'voorpagina',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=4',
+        dataName: 'voorpaginaData'
+    },
+    {
+        name: 'binnenland',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=1010',
+        dataName: 'binnenlandData'
+    },
+    {
+        name: 'buitenland',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=9',
+        dataName: 'buitenlandData'
+    },
+    {
+        name: 'column',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=7164',
+        dataName: 'columnData'
+    },
+    {
+        name: 'economie',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=6',
+        dataName: 'economieData'
+    },
+    {
+        name: 'kunstmedia',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=4',
+        dataName: 'kunstmediaData'
+    },
+    {
+        name: 'podcast',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=3211',
+        dataName: 'podcastData'
+    },
+    {
+        name: 'politiek',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=63',
+        dataName: 'politiekData'
+    },
+    {
+        name: 'wetenschap',
+        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=94',
+        dataName: 'wetenschapData'
+    }
+];
+
+
 /*** Routes & data ***/
 
 /*** FRONT PAGE ***/
 
 app.get("/", function (request, response) {
   Promise.all([
-    fetchJson(apiURLVoorpagina),
-    fetchJson(apiURLBinnenland),
-    fetchJson(apiURLBuitenland),
-    fetchJson(apiURLColumn),
-    fetchJson(apiURLEconomie),
-    fetchJson(apiURLKunstMedia),
-    fetchJson(apiURLPodcast),
-    fetchJson(apiURLPolitiek),
-    fetchJson(apiURLWetenschap),
-  ]).then(
+    // fetchJson(apiURLVoorpagina),
+    // fetchJson(apiURLBinnenland),
+    // fetchJson(apiURLBuitenland),
+    // fetchJson(apiURLColumn),
+    // fetchJson(apiURLEconomie),
+    // fetchJson(apiURLKunstMedia),
+    // fetchJson(apiURLPodcast),
+    // fetchJson(apiURLPolitiek),
+    // fetchJson(apiURLWetenschap),
+    categories.forEach(category => {
+        fetchJson(category.url);
+    })
+  ]).then
     ([
-      voorpaginaData,
-      binnenlandData,
-      buitenlandData,
-      columnData,
-      economieData,
-      kunstmediaData,
-      podcastData,
-      politiekData,
-      wetenschapData,
+      // voorpaginaData,
+      // binnenlandData,
+      // buitenlandData,
+      // columnData,
+      // economieData,
+      // kunstmediaData,
+      // podcastData,
+      // politiekData,
+      // wetenschapData,
+      categories.forEach(category => {
+        fetchJson(category.dataName);
+    })
     ]) => {
       response.render("index", {
         voorpagina: voorpaginaData,
@@ -81,6 +137,9 @@ app.get("/", function (request, response) {
         podcast: podcastData,
         politiek: politiekData,
         wetenschap: wetenschapData,
+        
+        categories.forEach(category => {
+        fetchJson(category.dataName);
       });
     }
   );
