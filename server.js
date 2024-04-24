@@ -31,118 +31,39 @@ app.listen(app.get("port"), function () {
 });
 
 /*** Constants ***/
-const baseURL = "https://redpers.nl/wp-json/wp/v2/posts?categories=";
-const perPage = "&per_page=3";
-
-const apiURLVoorpagina = "https://redpers.nl/wp-json/wp/v2/posts?per_page=4";
-const apiURLBinnenland = baseURL + 9 + perPage;
-const apiURLBuitenland = baseURL + 1010 + perPage;
-const apiURLColumn = baseURL + 7164 + perPage;
-const apiURLEconomie = baseURL + 6 + perPage;
-const apiURLKunstMedia = baseURL + 4 + perPage;
-const apiURLPodcast = baseURL + 3211 + perPage;
-const apiURLPolitiek = baseURL + 63 + perPage;
-const apiURLWetenschap = baseURL + 94 + perPage;
-
-
+const baseURL = "https://redpers.nl/wp-json/wp/v2/posts";
+const extraURL = "?per_page=3&categories="
 const categories = [
-    {
-        name: 'voorpagina',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=4',
-        dataName: 'voorpaginaData'
-    },
-    {
-        name: 'binnenland',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=1010',
-        dataName: 'binnenlandData'
-    },
-    {
-        name: 'buitenland',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=9',
-        dataName: 'buitenlandData'
-    },
-    {
-        name: 'column',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=7164',
-        dataName: 'columnData'
-    },
-    {
-        name: 'economie',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=6',
-        dataName: 'economieData'
-    },
-    {
-        name: 'kunstmedia',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=4',
-        dataName: 'kunstmediaData'
-    },
-    {
-        name: 'podcast',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=3211',
-        dataName: 'podcastData'
-    },
-    {
-        name: 'politiek',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=63',
-        dataName: 'politiekData'
-    },
-    {
-        name: 'wetenschap',
-        url: 'https://redpers.nl/wp-json/wp/v2/posts?per_page=3&categories=94',
-        dataName: 'wetenschapData'
-    }
+    { name: 'voorpagina', url: `${baseURL}?per_page=4` },
+    { name: 'binnenland', url: `${baseURL}${extraURL}1010` },
+    { name: 'buitenland', url: `${baseURL}${extraURL}9` },
+    { name: 'column', url: `${baseURL}${extraURL}7164` },
+    { name: 'economie', url: `${baseURL}${extraURL}6` },
+    { name: 'kunstmedia', url: `${baseURL}${extraURL}4` },
+    { name: 'podcast', url: `${baseURL}${extraURL}3211` },
+    { name: 'politiek', url: `${baseURL}${extraURL}63` },
+    { name: 'wetenschap', url: `${baseURL}${extraURL}94` }
 ];
-
 
 /*** Routes & data ***/
 
 /*** FRONT PAGE ***/
 
 app.get("/", function (request, response) {
-  Promise.all([
-    // fetchJson(apiURLVoorpagina),
-    // fetchJson(apiURLBinnenland),
-    // fetchJson(apiURLBuitenland),
-    // fetchJson(apiURLColumn),
-    // fetchJson(apiURLEconomie),
-    // fetchJson(apiURLKunstMedia),
-    // fetchJson(apiURLPodcast),
-    // fetchJson(apiURLPolitiek),
-    // fetchJson(apiURLWetenschap),
-    categories.forEach(category => {
-        fetchJson(category.url);
-    })
-  ]).then
-    ([
-      // voorpaginaData,
-      // binnenlandData,
-      // buitenlandData,
-      // columnData,
-      // economieData,
-      // kunstmediaData,
-      // podcastData,
-      // politiekData,
-      // wetenschapData,
-      categories.forEach(category => {
-        fetchJson(category.dataName);
-    })
-    ]) => {
-      response.render("index", {
-        voorpagina: voorpaginaData,
-        binnenland: binnenlandData,
-        buitenland: buitenlandData,
-        column: columnData,
-        economie: economieData,
-        kunstmedia: kunstmediaData,
-        podcast: podcastData,
-        politiek: politiekData,
-        wetenschap: wetenschapData,
-        
-        categories.forEach(category => {
-        fetchJson(category.dataName);
-      });
-    }
-  );
+    Promise.all(
+        categories.map(({ url }) => {
+            return fetchJson(url);
+        }
+        )
+    ).then((articleData) => {
+        categories.forEach((category, index) => {
+            category.articles = articleData[index];
+        });
+        response.render("index", {
+            article: articleData,
+            categories: categories
+        });
+    });
 });
 
 /***CATEGORY PAGES***/
@@ -172,12 +93,10 @@ app.get("/artikel/:slug", function (request, response) {
   });
 });
 
-
 /***LIKE ARTICLE ***/
 
-let likes = []
 
-app.post('/like', (request, response) => {
+app.post('/artikel/:slug', (request, response) => {
   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares?filter[slug][_eq]=${request.params.slug}`).then
     (({ data }) => {
   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares/${data[0]?.id ? data[0].id : ''}`, {
@@ -188,30 +107,6 @@ app.post('/like', (request, response) => {
         shares: data.length > 0 ? data[0].shares + 1 : 1,
       }),
     })
-    })
-  likes.push(request.body.like)
-      if (request.body.enhanced) {
-    response.render('partials/like', {like: likes})
-  } else
-  {
-        response.redirect(301, `/like`);
-      }
+  })
+    response.redirect(301, `/artikel/${request.params.slug}`);
 })
-
-
-// app.post('/artikel/:slug', (request, response) => {
-//   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares?filter[slug][_eq]=${request.params.slug}`).then
-//     (({ data }) => {
-//   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares/${data[0]?.id ? data[0].id : ''}`, {
-//       method: data[0]?.id ? 'PATCH' : 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({
-//         slug: request.params.slug,
-//         shares: data.length > 0 ? data[0].shares + 1 : 1,
-//       }),
-//     })
-//     })
-//   {
-//         response.redirect(301, `/artikel/${request.params.slug}`);
-//       }
-// })

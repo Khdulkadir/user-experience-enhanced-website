@@ -6,59 +6,64 @@
 <%- include('partials/header'); %>
 
 <main>
-<div class="main-container">
+
+
+<% categories.forEach(category => { %>
+      <% if (category.name === 'voorpagina') { %>
+        <div class="main-container">
   <a
     class="article-link"
-    href="artikel/<%= voorpagina[0].slug%>"
+    href="artikel/<%= category.articles[0].slug%>"
   >
     <article class="main-article">
       <div class="article-content-container">
       <div class="article-date-container">
-      <p class="article-date"><%= voorpagina[0].date %></p>
+      <p class="article-date"><%= category.articles[0].date %></p>
       </div>
-        <h2 class="article-title"><%- voorpagina[0].title.rendered %></h2>
-      <span class="excerpt"><%- voorpagina[0].excerpt.rendered %></span>
+        <h2 class="article-title"><%- category.articles[0].title.rendered %></h2>
+      <span class="excerpt"><%- category.articles[0].excerpt.rendered %></span>
       <div class="author-reading-time-container">
-      <p class="author"><%= voorpagina[0].yoast_head_json.author %></p>
+      <p class="author"><%= category.articles[0].yoast_head_json.author %></p>
       <p class="reading-time">–
-        <%= voorpagina[0].yoast_head_json.twitter_misc["Geschatte leestijd"] %>
+        <%= category.articles[0].yoast_head_json.twitter_misc["Geschatte leestijd"] %>
       </p>
       </div>
       </div>
       <div class="article-image-container">
       <img class="article-featured-image"
-        src="<%= voorpagina[0].yoast_head_json.og_image[0].url %>"
+        src="<%= category.articles[0].yoast_head_json.og_image[0].url %>"
         width="800" height="686"
-        alt="<%= voorpagina[0].yoast_head_json.schema['@graph'][2].caption %>"
+        alt="<%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>"
       />
-            <p class="caption">Beeld: <%= voorpagina[0].yoast_head_json.schema['@graph'][2].caption %>
+            <p class="caption">Beeld: <%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>
       </p>
       </div>
     </article>
   </a>
 </div>
 
+
 <div class="sub-article-container">
 <% for (var i = 1; i <= 3; i++) { %>
   <a
     class="article-link"
-    href="artikel/<%= voorpagina[i].slug%>"
+    href="artikel/<%= category.articles[i].slug%>"
   >
     <article class="sub-article">
       <div class="sub-article-featured-image-container">
         <img class="sub-article-featured-image"
-        src="<%= voorpagina[i].yoast_head_json.og_image[0].url %>"
+        src="<%= category.articles[i].yoast_head_json.og_image[0].url %>"
         width="768" height="512"
-        alt="<%= voorpagina[i].yoast_head_json.schema['@graph'][2].caption %>"
+        alt="<%= category.articles[i].yoast_head_json.schema['@graph'][2].caption %>"
         />
       </div>
       <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= voorpagina[i].date %></p>
-      <h2 class="sub-article-title"><%- voorpagina[i].title.rendered %></h2>
+      <p class="sub-article-date-mobile"><%= category.articles[i].date %></p>
+      <h2 class="sub-article-title"><%- category.articles[i].title.rendered %></h2>
       </div>
       <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= voorpagina[i].yoast_head_json.author %> <span class="reading-time">– <%= voorpagina[i].yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= voorpagina[i].date %></p>
+      <p class="author-reading-time"><%= category.articles[i].yoast_head_json.author %> <span class="reading-time">– <%= category.articles[i].yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
+      <p class="sub-article-date"><%= category.articles[i].date %></p>
       </div>
     </article>
   </a>
@@ -66,315 +71,43 @@
 <% } %>
 </div>
 
-<!-- <section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Binnenland</h2>
-  <a class="sub-article-section-link" href="/9"><span class="sub-article-section-link-text">Meer binnenland</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
 
-<div class="sub-article-container">
- <% binnenland.forEach(function(binnenland) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= binnenland.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= binnenland.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= binnenland.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= binnenland.date %></p>
-      <h2 class="sub-article-title"><%- binnenland.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= binnenland.yoast_head_json.author %> <span class="reading-time">– <%= binnenland.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= binnenland.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %> 
-</div>
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Buitenland</h2>
-  <a class="sub-article-section-link" href="/1010"><span class="sub-article-section-link-text">Meer buitenland</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% buitenland.forEach(function(buitenland) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= buitenland.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= buitenland.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= buitenland.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= buitenland.date %></p>
-      <h2 class="sub-article-title"><%- buitenland.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= buitenland.yoast_head_json.author %> <span class="reading-time">– <%= buitenland.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= buitenland.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div>
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Column</h2>
-  <a class="sub-article-section-link" href="/10"><span class="sub-article-section-link-text">Meer column</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% column.forEach(function(column) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= column.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= column.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= column.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= column.date %></p>
-      <h2 class="sub-article-title"><%- column.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= column.yoast_head_json.author %> <span class="reading-time">– <%= column.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= column.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div>
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Economie</h2>
-  <a class="sub-article-section-link" href="/6"><span class="sub-article-section-link-text">Meer economie</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% economie.forEach(function(economie) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= economie.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= economie.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= economie.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= economie.date %></p>
-      <h2 class="sub-article-title"><%- economie.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= economie.yoast_head_json.author %> <span class="reading-time">– <%= economie.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= economie.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div> 
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Kunst & Media</h2>
-  <a class="sub-article-section-link" href="/4"><span class="sub-article-section-link-text">Meer kunst & media</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% kunstmedia.forEach(function(kunstmedia) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= kunstmedia.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= kunstmedia.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= kunstmedia.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= kunstmedia.date %></p>
-
-      <h2 class="sub-article-title"><%- kunstmedia.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= kunstmedia.yoast_head_json.author %> <span class="reading-time">– <%= kunstmedia.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= kunstmedia.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div> 
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Podcasts</h2>
-  <a class="sub-article-section-link" href="/3211"><span class="sub-article-section-link-text">Meer podcasts</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% podcast.forEach(function(podcast) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= podcast.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= podcast.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= podcast.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= podcast.date %></p>
-      <h2 class="sub-article-title"><%- podcast.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= podcast.yoast_head_json.author %> <span class="reading-time">– <%= podcast.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= podcast.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div> 
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Politiek</h2>
-  <a class="sub-article-section-link" href="/63"><span class="sub-article-section-link-text">Meer politiek</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% politiek.forEach(function(politiek) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= politiek.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= politiek.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= politiek.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= politiek.date %></p>
-      <h2 class="sub-article-title"><%- politiek.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= politiek.yoast_head_json.author %> <span class="reading-time">– <%= politiek.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= politiek.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div> 
-
-<section class="sub-article-section">
-  <h2 class="sub-article-section-heading">Wetenschap</h2>
-  <a class="sub-article-section-link" href="/94"><span class="sub-article-section-link-text">Meer wetenschap</span><svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path></svg></a>
-</section>
-
-<div class="sub-article-container">
-<% wetenschap.forEach(function(wetenschap) { %>
-  <a
-    class="article-link"
-    href="artikel/<%= wetenschap.slug%>"
-  >
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-      <img class="sub-article-featured-image"
-        src="<%= wetenschap.yoast_head_json.og_image[0].url %>"
-        width="768" height="512"
-        alt="<%= wetenschap.yoast_head_json.schema['@graph'][2].caption %>"
-      />
-      </div>
-      <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= wetenschap.date %></p>
-        <h2 class="sub-article-title"><%- wetenschap.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-      <p class="author-reading-time"><%= wetenschap.yoast_head_json.author %> <span class="reading-time">– <%= wetenschap.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-      <p class="sub-article-date"><%= wetenschap.date %></p>
-      </div>
-    </article>
-  </a>
-<% }); %>
-</div>  -->
-
-<% const renderArticle = (article) => { %>
-  <a class="article-link" href="artikel/<%= article.slug %>">
-    <article class="sub-article">
-      <div class="sub-article-featured-image-container">
-        <img class="sub-article-featured-image"
-          src="<%= article.yoast_head_json.og_image[0].url %>"
-          width="768" height="512"
-          alt="<%= article.yoast_head_json.schema['@graph'][2].caption %>"
-        />
-      </div>
-      <div class="sub-article-title-container">
-        <p class="sub-article-date-mobile"><%= article.date %></p>
-        <h2 class="sub-article-title"><%- article.title.rendered %></h2>
-      </div>
-      <div class="author-reading-time-date-container">
-        <p class="author-reading-time"><%= article.yoast_head_json.author %> <span class="reading-time">– <%= article.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
-        <p class="sub-article-date"><%= article.date %></p>
-      </div>
-    </article>
-  </a>
-<% } %>
-
-<% const renderArticles = (category, categoryName) => { %>
-  <section class="sub-article-section">
-    <h2 class="sub-article-section-heading"><%= categoryName %></h2>
+    <% } %>
+  <% if (category.name !== 'voorpagina') { %>
+    <section class="sub-article-section">
+    <h2 class="sub-article-section-heading"><%= category.name %></h2>
     <a class="sub-article-section-link" href="/10">
-      <span class="sub-article-section-link-text">Meer <%= categoryName %></span>
+      <span class="sub-article-section-link-text">Meer <%= category.name %></span>
       <svg class="heading-link-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
         <path d="m12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75-4.374-9.75-9.75-9.75zm0 18c-4.549 0-8.25-3.701-8.25-8.25s3.701-8.25 8.25-8.25 8.25 3.701 8.25 8.25-3.701 8.25-8.25 8.25zm2.53-8.781c.293.293.293.768 0 1.061l-3 3c-.146.146-.338.22-.53.22s-.384-.073-.53-.22c-.293-.293-.293-.768 0-1.061l2.47-2.47-2.47-2.46995c-.293-.293-.293-.76803 0-1.06103s.768-.293 1.061 0z"></path>
       </svg>
     </a>
   </section>
-  <div class="sub-article-container">
-    <% category.forEach((article) => { %>
-      <%= renderArticle(article) %>
-    <% }); %>
-  </div>
-<% } %>
 
-<% const categories = {
-  'Binnenland': binnenland,
-  'Buitenland': buitenland,
-  'Column': column,
-  'Economie': economie,
-  'Kunst & Media': kunstmedia,
-  'Podcasts': podcast,
-  'Politiek': politiek,
-  'Wetenschap': wetenschap
-}; %>
-
-<% Object.keys(categories).forEach((category) => { %>
-  <%= renderArticles(categories[category], category) %>
+    <div class="sub-article-container">
+        <% category.articles.forEach(article => { %>
+            <a class="article-link" href="artikel/<%= article.slug %>">
+                <article class="sub-article">
+                    <div class="sub-article-featured-image-container">
+                        <img loading="lazy" class="sub-article-featured-image"
+                            src="<%= article.yoast_head_json.og_image[0].url %>"
+                            width="768" height="512"
+                            alt="<%= article.yoast_head_json.schema['@graph'][2].caption %>"
+                        />
+                    </div>
+                    <div class="sub-article-title-container">
+                        <p class="sub-article-date-mobile"><%= article.date %></p>
+                        <h2 class="sub-article-title"><%- article.title.rendered %></h2>
+                    </div>
+                    <div class="author-reading-time-date-container">
+                        <p class="author-reading-time"><%= article.yoast_head_json.author %> <span class="reading-time">– <%= article.yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
+                        <p class="sub-article-date"><%= article.date %></p>
+                    </div>
+                </article>
+            </a>
+            <% }); %>
+        <% } %>
+    </div>
 <% }); %>
 
 </main>

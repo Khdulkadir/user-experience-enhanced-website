@@ -132,31 +132,62 @@ document.querySelector('.article-post-date').textContent = formattedDateStr;
 
 // LIKE ARTICLE WITHOUT RELOADING PAGE
 
-let forms = document.querySelectorAll('form')
+// let forms = document.querySelectorAll('form')
 
-forms.forEach(function (form) {
+// forms.forEach(function (form) {
 
-  form.addEventListener('submit', function (event) {
+//   form.addEventListener('submit', function (event) {
     
-    let data = new FormData(this)
+//     let data = new FormData(this)
     
-		data.append('enhanced', true)
+// 		data.append('enhanced', true)
 
-		fetch(this.action, {
+// 		fetch(this.action, {
 
-			method: this.method,
+// 			method: this.method,
 
-			body: new URLSearchParams(data)
+// 			body: new URLSearchParams(data)
 
-		}).then(function(response) {
+// 		}).then(function(response) {
 
-			return response.text()
+// 			return response.text()
 
-		}).then(function(responseHTML) {
-			document.querySelector('button').innerHTML = responseHTML
+// 		}).then(function(responseHTML) {
+// 			document.querySelector('div#like-count').innerHTML = responseHTML
 
-		});
+// 		});
 
-		event.preventDefault()
-	})
-})
+// 		event.preventDefault()
+// 	})
+// })
+
+document.addEventListener("DOMContentLoaded", function() {
+  let forms = document.querySelectorAll('form');
+
+  forms.forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let data = new FormData(this);
+      data.append('enhanced', true);
+
+      fetch(this.action, {
+        method: this.method,
+        body: new URLSearchParams(data)
+      })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(responseHTML) {
+        let parser = new DOMParser();
+        let responseDOM = parser.parseFromString(responseHTML, 'text/html');
+        let likeCount = responseDOM.querySelector('span#like-count');
+
+        let currentLikeCount = document.querySelector('span#like-count');
+        if (currentLikeCount && likeCount) {
+          currentLikeCount.innerHTML = likeCount.innerHTML;
+        }
+      });
+    });
+  });
+});
