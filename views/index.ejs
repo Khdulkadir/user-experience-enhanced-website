@@ -30,12 +30,12 @@
       </div>
       </div>
       <div class="article-image-container">
-      <img class="article-featured-image"
-        src="<%= category.articles[0].yoast_head_json.og_image[0].url %>"
-        width="800" height="686"
-        alt="<%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>"
-      />
-            <p class="caption">Beeld: <%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>
+        <img class="article-featured-image"
+          src="<%= category.articles[0].yoast_head_json.og_image[0].url%>"
+          width="800" height="686"
+          alt="<%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>"
+        />
+      <p class="caption">Beeld: <%= category.articles[0].yoast_head_json.schema['@graph'][2].caption %>
       </p>
       </div>
     </article>
@@ -51,7 +51,7 @@
   >
     <article class="sub-article">
       <div class="sub-article-featured-image-container">
-        <img class="sub-article-featured-image"
+        <img loading="lazy" class="sub-article-featured-image"
         src="<%= category.articles[i].yoast_head_json.og_image[0].url %>"
         width="768" height="512"
         alt="<%= category.articles[i].yoast_head_json.schema['@graph'][2].caption %>"
