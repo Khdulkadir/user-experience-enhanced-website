@@ -130,36 +130,7 @@ for (var i = 0; i < elements.length; i++) {
     // Update the content of the element with the formatted date
 document.querySelector('.article-post-date').textContent = formattedDateStr;
 
-// LIKE ARTICLE WITHOUT RELOADING PAGE
 
-// let forms = document.querySelectorAll('form')
-
-// forms.forEach(function (form) {
-
-//   form.addEventListener('submit', function (event) {
-    
-//     let data = new FormData(this)
-    
-// 		data.append('enhanced', true)
-
-// 		fetch(this.action, {
-
-// 			method: this.method,
-
-// 			body: new URLSearchParams(data)
-
-// 		}).then(function(response) {
-
-// 			return response.text()
-
-// 		}).then(function(responseHTML) {
-// 			document.querySelector('div#like-count').innerHTML = responseHTML
-
-// 		});
-
-// 		event.preventDefault()
-// 	})
-// })
 
 document.addEventListener("DOMContentLoaded", function() {
   let forms = document.querySelectorAll('form');
@@ -167,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
   forms.forEach(function(form) {
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-
+      document.getElementById("like-count").classList.add("loading");
       let data = new FormData(this);
       data.append('enhanced', true);
 
@@ -187,6 +158,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (currentLikeCount && likeCount) {
           currentLikeCount.innerHTML = likeCount.innerHTML;
         }
+        document.getElementById("like-count").classList.remove("loading");
+        document.getElementById("like-count").classList.add("success");
+        document.getElementById("like-icon").classList.add("success");
       });
     });
   });

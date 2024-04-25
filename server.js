@@ -102,11 +102,11 @@ app.post('/artikel/:slug', (request, response) => {
   fetchJson(`https://fdnd-agency.directus.app/items/redpers_shares/${data[0]?.id ? data[0].id : ''}`, {
       method: data[0]?.id ? 'PATCH' : 'POST',
       headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+      body: JSON.stringify({
         slug: request.params.slug,
         shares: data.length > 0 ? data[0].shares + 1 : 1,
       }),
     })
-  })
+    })
     response.redirect(301, `/artikel/${request.params.slug}`);
 })
