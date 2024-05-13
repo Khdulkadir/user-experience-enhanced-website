@@ -133,7 +133,7 @@ document.querySelector('.article-post-date').textContent = formattedDateStr;
 
 const forms = document.querySelectorAll('form');
 
- forms.forEach(function(form) {
+forms.forEach(function(form) {
   form.addEventListener('submit', function (event) {
     document.getElementById("like-count").classList.add("loading");
     const data = new FormData(this);
