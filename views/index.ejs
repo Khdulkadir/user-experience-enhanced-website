@@ -7,7 +7,6 @@
 
 <main>
 
-
 <% categories.forEach(category => { %>
       <% if (category.name === 'voorpagina') { %>
         <div class="main-container">
@@ -50,6 +49,7 @@
     href="artikel/<%= category.articles[i].slug%>"
   >
     <article class="sub-article">
+
       <div class="sub-article-featured-image-container">
         <img loading="lazy" class="sub-article-featured-image"
         src="<%= category.articles[i].yoast_head_json.og_image[0].url %>"
@@ -57,10 +57,12 @@
         alt="<%= category.articles[i].yoast_head_json.schema['@graph'][2].caption %>"
         />
       </div>
+
       <div class="sub-article-title-container">
-      <p class="sub-article-date-mobile"><%= category.articles[i].date %></p>
-      <h2 class="sub-article-title"><%- category.articles[i].title.rendered %></h2>
+        <p class="sub-article-date-mobile"><%= category.articles[i].date %></p>
+        <h2 class="sub-article-title"><%- category.articles[i].title.rendered %></h2>
       </div>
+      
       <div class="author-reading-time-date-container">
       <p class="author-reading-time"><%= category.articles[i].yoast_head_json.author %> <span class="reading-time">– <%= category.articles[i].yoast_head_json.twitter_misc["Geschatte leestijd"] %></span></p>
       <p class="sub-article-date"><%= category.articles[i].date %></p>
